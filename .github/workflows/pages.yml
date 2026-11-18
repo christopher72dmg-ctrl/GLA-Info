@@ -4,8 +4,11 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'scripts/update-live-data.py'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
+  schedule:
+    - cron: '*/10 * * * *'
 permissions:
   contents: read
   pages: write
@@ -22,6 +25,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Fetch live public data
+        run: python3 scripts/update-live-data.py
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
