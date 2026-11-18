@@ -34,6 +34,13 @@ a.tile:active{transform:scale(.985)}a.tile:hover{border-color:var(--accent);box-
 button{border:1px solid var(--line);border-radius:10px;background:#244b59;color:var(--ink);padding:10px 14px;font:inherit;font-weight:650}
 .quicklinks{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
 .quicklinks a{color:var(--accent);font-size:.9rem;text-underline-offset:3px}
+.network-tile{cursor:pointer;list-style:none}
+.network-tile summary{list-style:none}
+.network-tile summary::-webkit-details-marker{display:none}
+.network-tile summary:after{content:"＋";float:right;color:var(--accent);font-weight:800}
+.network-tile[open] summary:after{content:"−"}
+.network-links{display:grid;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.network-links a{color:var(--accent);font-size:.9rem;text-decoration:underline;text-underline-offset:3px}
 footer{text-align:center;color:var(--muted);font-size:.8rem;padding:0 20px 28px}
 @media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:360px){.grid{grid-template-columns:1fr}.clock{align-items:flex-start;flex-direction:column}}
@@ -62,24 +69,21 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:0 20px 28px}
   <a class="tile" href="https://511.gnb.ca/" target="_blank" rel="noopener"><span class="icon">🚧</span><b>Road conditions</b><small>NB 511 closures, incidents and road reports</small></a>
   <a class="tile" href="https://asdeast.nbed.ca/alerts/" target="_blank" rel="noopener"><span class="icon">🚌</span><b>School bus &amp; school alerts</b><small>Anglophone East delays, cancellations and school notices</small></a>
   <a class="tile" href="https://asdebp.nbed.nb.ca/" target="_blank" rel="noopener"><span class="icon">🎒</span><b>BusPlanner parent portal</b><small>Bus route details and email alert subscriptions</small></a>
-  <a class="tile" href="https://outagecanada.com/internet-outages.html" target="_blank" rel="noopener"><span class="icon">📡</span><b>Internet outages</b><small>Canadian provider outage overview; confirm with your ISP</small></a>
-  <a class="tile" href="https://www.thousandeyes.com/outages/" target="_blank" rel="noopener"><span class="icon">🌐</span><b>Worldwide network outages</b><small>Global outage map for ISPs, cloud networks and major online services; refreshes every 5 minutes</small></a>
-  <a class="tile" href="https://radar.cloudflare.com/outage-center" target="_blank" rel="noopener"><span class="icon">🌍</span><b>Global Internet disruptions</b><small>Cloudflare Radar reports country, regional and network-level Internet disruptions</small></a>
+  <details class="tile network-tile">
+   <summary><span class="icon">🌐</span><b>Internet &amp; network outages</b><small>Local, Canadian and worldwide outage checks · tap to expand</small></summary>
+   <div class="network-links">
+    <a href="https://support.bell.ca/Outage-Check" target="_blank" rel="noopener">Bell outage checker</a>
+    <a href="https://www.rogers.com/support/outage" target="_blank" rel="noopener">Rogers outage checker</a>
+    <a href="https://outagecanada.com/internet-outages.html" target="_blank" rel="noopener">Canada-wide Internet outages</a>
+    <a href="https://www.thousandeyes.com/outages/" target="_blank" rel="noopener">Worldwide network outages · ThousandEyes</a>
+    <a href="https://radar.cloudflare.com/outage-center" target="_blank" rel="noopener">Global Internet disruptions · Cloudflare Radar</a>
+   </div>
+  </details>
   <a class="tile" href="https://globe.airplanes.live/?lat=46.0&amp;lon=-65.9&amp;zoom=8" target="_blank" rel="noopener"><span class="icon">✈️</span><b>Aircraft overhead</b><small>Live ADS-B aircraft map centred near Grand Lake</small></a>
   <a class="tile" href="https://www2.gnb.ca/content/gnb/en/departments/public_safety.html" target="_blank" rel="noopener"><span class="icon">🚨</span><b>Public safety</b><small>New Brunswick public safety information</small></a>
   <a class="tile" href="https://www2.gnb.ca/content/gnb/en/departments/erd/natural_resources/content/ForestsCrownLands/content/FireWatch.html" target="_blank" rel="noopener"><span class="icon">🔥</span><b>Fire &amp; burn information</b><small>Provincial fire information and restrictions</small></a>
   <a class="tile" href="https://tides.gc.ca/" target="_blank" rel="noopener"><span class="icon">🌊</span><b>Tides &amp; water levels</b><small>Canadian tide tables and water-level information</small></a>
  </section>
- <h2>Internet service checks</h2>
- <div class="panel">
-  <strong>Check your provider directly</strong>
-  <p>Third-party outage maps are useful for spotting wider problems, but they are based on reports and may not show every local interruption.</p>
-  <div class="quicklinks">
-   <a href="https://support.bell.ca/Outage-Check" target="_blank" rel="noopener">Bell outage checker</a>
-   <a href="https://www.rogers.com/support/outage" target="_blank" rel="noopener">Rogers outage checker</a>
-   <a href="https://outagecanada.com/internet-outages.html" target="_blank" rel="noopener">Canada-wide outage overview</a>
-  </div>
- </div>
  <h2>Community noticeboard</h2>
  <div class="panel">
   <strong>Local updates will appear here</strong>
