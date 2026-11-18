@@ -40,7 +40,10 @@ except Exception as e:
 
 # Airplanes.live feed is fetched server-side to avoid browser CORS restrictions.
 try:
-    data = json.loads(get("https://api.airplanes.live/v2/point/46.0/-65.9/50"))
+    try:
+        data = json.loads(get("https://api.airplanes.live/v2/point/46.0/-65.9/50"))
+    except Exception:
+        data = json.loads(get("https://api.adsb.lol/v2/point/46.0/-65.9/50"))
     aircraft = [a for a in data.get("ac", []) if a.get("lat") is not None and a.get("lon") is not None and float(a.get("seen_pos", 999) or 999) < 90]
     samples = []
     for a in aircraft[:8]:
