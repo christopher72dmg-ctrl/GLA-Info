@@ -23,10 +23,10 @@ out = {"generated_at": datetime.now(timezone.utc).isoformat(), "power": {}, "air
 try:
     raw = get("https://www.nbpower.com/Open/Outages.aspx?lang=en").decode("utf-8", "replace")
     parser = TextOnly(); parser.feed(raw)
-    text = re.sub(r"\\s+", " ", " ".join(parser.parts))
-    region = re.search(r"Kings\\s*/\\s*Queens\\s+(\\d+)\\s+(\\d+)", text, re.I)
-    total = re.search(r"Summary\\s+(\\d+)\\s+(\\d+)", text, re.I)
-    stamp = re.search(r"Outage Data Last Updated at:\\s*(.{5,45}?)(?:Emergency Contact|$)", text, re.I)
+    text = re.sub(r"\s+", " ", " ".join(parser.parts))
+    region = re.search(r"Kings\s*/\s*Queens\s+(\d+)\s+(\d+)", text, re.I)
+    total = re.search(r"Summary\s+(\d+)\s+(\d+)", text, re.I)
+    stamp = re.search(r"Outage Data Last Updated at:\s*(.{5,45}?)(?:Emergency Contact|$)", text, re.I)
     if not region or not total:
         raise ValueError("NB Power page layout did not contain the expected regional table")
     out["power"] = {
