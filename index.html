@@ -128,8 +128,17 @@ async function loadLiveData(){try{
  if(d.aircraft&&d.aircraft.ok){const a=d.aircraft;put("air-live",a.count?`${a.count} AIRCRAFT WITH RECENT POSITIONS WITHIN 50 NM • ${(a.samples||[]).join(" • ")} • `:"NO AIRCRAFT WITH RECENT POSITIONS WITHIN 50 NM • CHECK THE LIVE MAP • ")}else{put("air-live","AIRCRAFT FEED NOT AVAILABLE: "+((d.aircraft&&d.aircraft.error)||"feed did not respond")+" • OPEN LIVE FLIGHT TRACKER • ")}
  if(d.network&&d.network.ok){const n=d.network;put("network-live",n.active_count?`CLOUDFLARE ACTIVE INCIDENTS: ${n.incidents.map(x=>x.name+" ("+x.status+")").join(" • ")} • `:"CLOUDFLARE STATUS: NO ACTIVE INCIDENTS REPORTED • BELL / ROGERS / CANADA CHECKERS BELOW • ")}else{put("network-live","CLOUDFLARE STATUS FEED NOT AVAILABLE: "+((d.network&&d.network.error)||"feed did not respond")+" • CHECK PROVIDER LINKS BELOW • ")}
 }catch(e){put("power-live","LIVE DATA UPDATE NOT PUBLISHED YET • ");put("air-live","LIVE DATA UPDATE NOT PUBLISHED YET • ");put("network-live","LIVE DATA UPDATE NOT PUBLISHED YET • ")}}
+async function loadWeather(){try{
+ const u="https://api.open-meteo.com/v1/forecast?latitude=46.0&longitude=-65.9&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=America%2FMoncton&forecast_days=2";
+ const r=await fetch(u);if(!r.ok)throw Error("weather service unavailable");
+ const w=await r.json(),c=w.current,d=w.daily;
+ const codes={0:"clear",1:"mostly clear",2:"partly cloudy",3:"cloudy",45:"fog",48:"fog",51:"light drizzle",53:"drizzle",55:"heavy drizzle",61:"light rain",63:"rain",65:"heavy rain",71:"light snow",73:"snow",75:"heavy snow",80:"showers",81:"showers",82:"heavy showers",95:"thunderstorms",96:"thunderstorms",99:"thunderstorms"};
+ const today=codes[c.weather_code]||"conditions changing";
+ const tomorrow=codes[d.weather_code[1]]||"forecast available";
+ put("weather-live",`NOW ${Math.round(c.temperature_2m)}°C / FEELS ${Math.round(c.apparent_temperature)}°C • ${today.toUpperCase()} • WIND ${Math.round(c.wind_speed_10m)} KM/H • HUMIDITY ${c.relative_humidity_2m}% • TOMORROW ${Math.round(d.temperature_2m_min[1])}°–${Math.round(d.temperature_2m_max[1])}°C ${tomorrow.toUpperCase()} • `);
+ }catch(e){put("weather-live","WEATHER UPDATE UNAVAILABLE • CHECK ENVIRONMENT CANADA FORECAST • ")}}
+loadWeather();setInterval(loadWeather,10*60*1000);
 loadLiveData();setInterval(loadLiveData,60*1000);
-setInterval(loadAircraft,60*1000);setInterval(loadPower,10*60*1000);setInterval(loadNetwork,5*60*1000);
 
 </script>
 </body></html>
