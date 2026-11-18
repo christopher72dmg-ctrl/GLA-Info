@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b3a">
+<title>Grand Lake Community Info</title>
+<style>
+:root{color-scheme:dark;--bg:#0c1d27;--panel:#142f3d;--panel2:#1a3b49;--ink:#f2f7f7;--muted:#b8cbd0;--line:#315361;--accent:#8dd5c5;--gold:#f0c879}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#102b3a,#0b1922 420px);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:28px 18px 22px;text-align:center;border-bottom:1px solid var(--line)}
+header .eyebrow{color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+h1{font-size:clamp(1.8rem,6vw,2.7rem);line-height:1.08;margin:8px 0}
+header p{margin:8px auto 0;color:var(--muted);max-width:620px}
+main{width:min(980px,100% - 28px);margin:22px auto 40px}
+.notice{background:#263b3e;border:1px solid #66765d;border-radius:14px;padding:13px 15px;margin-bottom:18px;color:#f7edcf}
+.clock{display:flex;justify-content:space-between;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:18px}
+.clock strong{font-size:1.2rem;font-variant-numeric:tabular-nums}.clock span{color:var(--muted);font-size:.9rem}
+h2{font-size:1.1rem;margin:22px 2px 10px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+a.tile{display:block;min-height:112px;padding:15px;text-decoration:none;color:var(--ink);background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:15px;transition:transform .15s,border-color .15s}
+a.tile:active{transform:scale(.985)}a.tile:hover{border-color:var(--accent)}
+.tile .icon{font-size:1.55rem}.tile b{display:block;margin:5px 0 2px;font-size:1rem}.tile small{color:var(--muted);font-size:.84rem}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:16px;margin-top:12px}
+.panel p{margin:5px 0;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+button{border:1px solid var(--line);border-radius:10px;background:#244b59;color:var(--ink);padding:10px 14px;font:inherit;font-weight:650}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:0 20px 28px}
+@media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:360px){.grid{grid-template-columns:1fr}.clock{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+ <div class="eyebrow">Queens County • New Brunswick</div>
+ <h1>Grand Lake Community Info</h1>
+ <p>A handy starting point for local conditions, public notices and useful services.</p>
+</header>
+<main>
+ <div class="notice"><strong>Community information hub</strong><br>Check the linked official sources for the latest details. In an emergency, call 911. This site is independent and is not an emergency-alert service.</div>
+ <div class="clock"><div><strong id="time">Local time</strong><br><span id="date">Loading date…</span></div><span>Grand Lake area · Atlantic Time</span></div>
+ <h2>Conditions &amp; services</h2>
+ <section class="grid">
+  <a class="tile" href="https://weather.gc.ca/" target="_blank" rel="noopener"><span class="icon">🌦️</span><b>Weather</b><small>Environment and Climate Change Canada forecasts and alerts</small></a>
+  <a class="tile" href="https://www.nbpower.com/Open/Outages.aspx" target="_blank" rel="noopener"><span class="icon">💡</span><b>NB Power outages</b><small>Outage map and restoration information</small></a>
+  <a class="tile" href="https://511.gnb.ca/" target="_blank" rel="noopener"><span class="icon">🚧</span><b>Road conditions</b><small>NB 511 closures, incidents and road reports</small></a>
+  <a class="tile" href="https://www2.gnb.ca/content/gnb/en/departments/public_safety.html" target="_blank" rel="noopener"><span class="icon">🚨</span><b>Public safety</b><small>New Brunswick public safety information</small></a>
+  <a class="tile" href="https://www2.gnb.ca/content/gnb/en/departments/erd/natural_resources/content/ForestsCrownLands/content/FireWatch.html" target="_blank" rel="noopener"><span class="icon">🔥</span><b>Fire &amp; burn information</b><small>Provincial fire information and restrictions</small></a>
+  <a class="tile" href="https://tides.gc.ca/" target="_blank" rel="noopener"><span class="icon">🌊</span><b>Tides &amp; water levels</b><small>Canadian tide tables and water-level information</small></a>
+ </section>
+ <h2>Community noticeboard</h2>
+ <div class="panel">
+  <strong>Local updates will appear here</strong>
+  <p>This space is ready for verified community notices. For now, use the official links above and check local group posts for neighbour-reported updates.</p>
+  <div class="actions"><button id="copy">Copy website link</button></div>
+  <p id="copied" aria-live="polite"></p>
+ </div>
+ <div class="panel">
+  <strong>Share useful information</strong>
+  <p>When posting a report, include the location, time observed and source if available. Avoid sharing private details or unconfirmed rumours.</p>
+ </div>
+</main>
+<footer>Independent community project · Information can change quickly. Always confirm important details with the responsible authority.</footer>
+<script>
+const fmtDate=new Intl.DateTimeFormat('en-CA',{weekday:'long',year:'numeric',month:'long',day:'numeric',timeZone:'America/Moncton'});
+const fmtTime=new Intl.DateTimeFormat('en-CA',{hour:'numeric',minute:'2-digit',second:'2-digit',timeZone:'America/Moncton'});
+function tick(){const d=new Date();document.getElementById('time').textContent=fmtTime.format(d);document.getElementById('date').textContent=fmtDate.format(d)}
+tick();setInterval(tick,1000);
+document.getElementById('copy').addEventListener('click',async()=>{const msg=document.getElementById('copied');try{await navigator.clipboard.writeText(location.href);msg.textContent='Website address copied.'}catch(e){msg.textContent='Copy is not available in this browser. Use the address bar to share this page.'}});
+</script>
+</body></html>
