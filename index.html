@@ -26,7 +26,14 @@ main{width:min(980px,100% - 28px);margin:22px auto 40px}
 h2{font-size:1.1rem;margin:22px 2px 10px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 a.tile{display:block;min-height:112px;padding:15px;text-decoration:none;color:var(--ink);background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:15px;transition:transform .15s,border-color .15s,box-shadow .15s;box-shadow:0 5px 16px #0002}
-a.tile:active{transform:scale(.985)}a.tile:hover{border-color:var(--accent);box-shadow:0 8px 22px #0004}
+a.tile:active{transform:scale(.985)}
+.mini-scroll{display:block;overflow:hidden;white-space:nowrap;margin-top:10px;padding-top:7px;border-top:1px solid #ffffff18;color:var(--accent);font-size:.72rem;font-weight:700;letter-spacing:.035em}
+.mini-scroll span{display:inline-block;padding-left:100%;animation:miniroll 22s linear infinite}
+@keyframes miniroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+.radar-mark{display:inline-block;width:11px;height:11px;margin-right:5px;border:1px solid var(--accent);border-radius:50%;vertical-align:-1px;position:relative;overflow:hidden}
+.radar-mark:after{content:"";position:absolute;inset:0;background:conic-gradient(transparent 0 65%,var(--accent) 85%,transparent 88%);animation:sweep 2.4s linear infinite}
+@keyframes sweep{to{transform:rotate(360deg)}}
+a.tile:hover{border-color:var(--accent);box-shadow:0 8px 22px #0004}
 .tile .icon{font-size:1.55rem}.tile b{display:block;margin:5px 0 2px;font-size:1rem}.tile small{color:var(--muted);font-size:.84rem}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:16px;margin-top:12px}
 .panel p{margin:5px 0;color:var(--muted)}
@@ -64,7 +71,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:0 20px 28px}
 <div class="ticker" aria-label="Community information ticker">
  <div class="ticker-track">
   <span>GRAND LAKE COMMUNITY INFO <i class="dot">◆</i> WEATHER &amp; MOVING RADAR <i class="dot">◆</i> NB POWER OUTAGES &amp; RESTORATION UPDATES <i class="dot">◆</i> NB 511 ROAD CONDITIONS <i class="dot">◆</i> LOCAL INTERNET OUTAGES <i class="dot">◆</i> WORLDWIDE INTERNET &amp; NETWORK DISRUPTIONS <i class="dot">◆</i> AIRCRAFT OVER GRAND LAKE <i class="dot">◆</i> FIRE &amp; BURN RESTRICTIONS <i class="dot">◆</i> TIDES &amp; WATER LEVELS <i class="dot">◆</i> PUBLIC SAFETY NOTICES <i class="dot">◆</i> SHARE CONFIRMED REPORTS WITH LOCATION &amp; TIME <i class="dot">◆</i></span>
-  <span aria-hidden="true">GRAND LAKE COMMUNITY INFO <i class="dot">◆</i> WEATHER &amp; MOVING RADAR <i class="dot">◆</i> NB POWER OUTAGES &amp; RESTORATION UPDATES <i class="dot">◆</i> NB 511 ROAD CONDITIONS <i class="dot">◆</i> SCHOOL BUS DELAYS &amp; CANCELLATIONS <i class="dot">◆</i> LOCAL INTERNET OUTAGES <i class="dot">◆</i> WORLDWIDE INTERNET &amp; NETWORK DISRUPTIONS <i class="dot">◆</i> AIRCRAFT OVER GRAND LAKE <i class="dot">◆</i> FIRE &amp; BURN RESTRICTIONS <i class="dot">◆</i> TIDES &amp; WATER LEVELS <i class="dot">◆</i> PUBLIC SAFETY NOTICES <i class="dot">◆</i> SHARE CONFIRMED REPORTS WITH LOCATION &amp; TIME <i class="dot">◆</i></span>
+  <span aria-hidden="true">GRAND LAKE COMMUNITY INFO <i class="dot">◆</i> WEATHER &amp; MOVING RADAR <i class="dot">◆</i> NB POWER OUTAGES &amp; RESTORATION UPDATES <i class="dot">◆</i> NB 511 ROAD CONDITIONS <i class="dot">◆</i> LOCAL INTERNET OUTAGES <i class="dot">◆</i> WORLDWIDE INTERNET &amp; NETWORK DISRUPTIONS <i class="dot">◆</i> AIRCRAFT OVER GRAND LAKE <i class="dot">◆</i> FIRE &amp; BURN RESTRICTIONS <i class="dot">◆</i> TIDES &amp; WATER LEVELS <i class="dot">◆</i> PUBLIC SAFETY NOTICES <i class="dot">◆</i> SHARE CONFIRMED REPORTS WITH LOCATION &amp; TIME <i class="dot">◆</i></span>
  </div>
 </div>
 <main>
@@ -72,11 +79,11 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:0 20px 28px}
  <div class="clock"><div><strong id="time">Local time</strong><br><span id="date">Loading date…</span></div><span>Grand Lake area · Atlantic Time</span></div>
  <h2>Conditions &amp; services</h2>
  <section class="grid">
-  <a class="tile" href="https://weather.gc.ca/" target="_blank" rel="noopener"><span class="icon">🌦️</span><b>Weather &amp; radar</b><small>Forecasts, warnings and animated precipitation</small></a>
-  <a class="tile power-tile" href="https://www.nbpower.com/Open/Outages.aspx" target="_blank" rel="noopener"><span class="power-pulse"></span><span class="icon">💡</span><b>NB Power outages</b><small>Live outage map · Kings / Queens County · restoration updates</small><span class="live-label">OPEN LIVE OUTAGE MAP ↗</span></a>
+  <a class="tile" href="https://weather.gc.ca/" target="_blank" rel="noopener"><span class="icon">🌦️</span><b>Weather &amp; radar</b><small>Forecasts, warnings and precipitation radar</small><span class="mini-scroll"><span>FORECAST • WARNINGS • RAIN &amp; SNOW RADAR • WIND • HUMIDEX • </span></span></a>
+  <a class="tile power-tile" href="https://www.nbpower.com/Open/Outages.aspx" target="_blank" rel="noopener"><span class="power-pulse"></span><span class="icon">💡</span><b>NB Power outages</b><small>Live outage map · Kings / Queens County · restoration updates</small><span class="live-label">OPEN LIVE OUTAGE MAP ↗</span><span class="mini-scroll"><span>NB POWER • OUTAGE MAP • RESTORATION ESTIMATES • QUEENS COUNTY • </span></span></a>
   <a class="tile" href="https://511.gnb.ca/" target="_blank" rel="noopener"><span class="icon">🚧</span><b>Road conditions</b><small>NB 511 closures, incidents and road reports</small></a>
   <details class="tile network-tile">
-   <summary><span class="icon">🌐</span><b>Internet &amp; network outages</b><small>Local, Canadian and worldwide outage checks · tap to expand</small></summary>
+   <summary><span class="icon">🌐</span><b>Internet &amp; network outages</b><small>Local, Canadian and worldwide outage checks · tap to expand</small><span class="mini-scroll"><span>BELL • ROGERS • CANADA-WIDE • THOUSANDEYES • CLOUDFLARE • </span></span></summary>
    <div class="network-links">
     <a href="https://support.bell.ca/Outage-Check" target="_blank" rel="noopener">Bell outage checker</a>
     <a href="https://www.rogers.com/support/outage" target="_blank" rel="noopener">Rogers outage checker</a>
@@ -85,21 +92,10 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:0 20px 28px}
     <a href="https://radar.cloudflare.com/outage-center" target="_blank" rel="noopener">Global Internet disruptions · Cloudflare Radar</a>
    </div>
   </details>
-  <a class="tile" href="https://globe.airplanes.live/?lat=46.0&amp;lon=-65.9&amp;zoom=8&amp;tempTrails=60" target="_blank" rel="noopener"><span class="icon">✈️</span><b>Aircraft overhead</b><small>Live aircraft positions with 60-second trails</small><span class="live-label">LIVE FLIGHT TRACKER ↗</span></a>
+  <a class="tile" href="https://globe.airplanes.live/?lat=46.0&amp;lon=-65.9&amp;zoom=8&amp;tempTrails=60" target="_blank" rel="noopener"><span class="icon">✈️</span><b>Aircraft overhead</b><small>Live aircraft positions with 60-second trails</small><span class="live-label"><span class="radar-mark"></span>LIVE FLIGHT TRACKER ↗</span><span class="mini-scroll"><span>AIRCRAFT POSITIONS • FLIGHT TRACKS • REGIONAL AIR TRAFFIC • </span></span></a>
   <a class="tile" href="https://www2.gnb.ca/content/gnb/en/departments/public_safety.html" target="_blank" rel="noopener"><span class="icon">🚨</span><b>Public safety</b><small>New Brunswick public safety information</small></a>
   <a class="tile" href="https://www2.gnb.ca/content/gnb/en/departments/erd/natural_resources/content/ForestsCrownLands/content/FireWatch.html" target="_blank" rel="noopener"><span class="icon">🔥</span><b>Fire &amp; burn information</b><small>Provincial fire information and restrictions</small></a>
   <a class="tile" href="https://tides.gc.ca/" target="_blank" rel="noopener"><span class="icon">🌊</span><b>Tides &amp; water levels</b><small>Canadian tide tables and water-level information</small></a>
- </section>
- <h2>Live views</h2>
- <section class="motion-panel">
-  <h3>🌧️ Weather moving across the region</h3>
-  <iframe class="motion-frame" title="Live animated weather radar near Grand Lake" height="280" loading="lazy" src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=7&overlay=radar&product=ecmwf&level=surface&lat=46.0&lon=-65.9&detail=true"></iframe>
-  <p>Animated radar and weather layers. Use the map controls to play the radar and explore nearby conditions.</p>
- </section>
- <section class="motion-panel">
-  <h3>✈️ Aircraft moving overhead</h3>
-  <iframe class="motion-frame" title="Live aircraft map centred near Grand Lake" height="330" loading="lazy" src="https://globe.airplanes.live/?lat=46.0&lon=-65.9&zoom=8&tempTrails=60&hideButtons"></iframe>
-  <p>Live ADS-B / MLAT aircraft where receiver coverage is available. Flight tracking is informational only.</p>
  </section>
  <h2>Community noticeboard</h2>
  <div class="panel">
